@@ -21,10 +21,36 @@ player = Player("Name", world.startingRoom)
 
 
 # FILL THIS IN
-traversalPath = []
-visited_rooms = {}
+traversalPath = [] 
+
+reversalPath = [] 
+
+visited = {}
+
+op_dir = {'n': 's', 's': 'n', 'w': 'e', 'e': 'w'}
+
+visited[player.currentRoom.id] = player.currentRoom.getExits()
+
+graph_len = len(roomGraph)-1
+
+while len(visited) < graph_len:
+    if player.currentRoom.id not in visited:
+        visited[player.currentRoom.id] = player.currentRoom.getExits()
+        visited[player.currentRoom.id].remove(reversalPath[-1])
 
 
+    while len(visited[player.currentRoom.id]) == 0:
+        reverseDir = reversalPath.pop()
+        traversalPath.append(reverseDir)
+        player.travel(reverseDir)
+
+    dir = visited[player.currentRoom.id].pop(0)
+
+    traversalPath.append(dir)
+
+    reversalPath.append(op_dir[dir])
+    player.travel(dir)
+    
 # TRAVERSAL TEST
 visited_rooms = set()
 player.currentRoom = world.startingRoom
