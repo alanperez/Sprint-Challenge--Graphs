@@ -58,7 +58,7 @@ visited_rooms.add(player.currentRoom)
 for move in traversalPath:
     player.travel(move)
     visited_rooms.add(player.currentRoom)
-
+#Room with no exits.. visited dict keeps track of directions when travelling back.
 if len(visited_rooms) == len(roomGraph):
     print(f"TESTS PASSED: {len(traversalPath)} moves, {len(visited_rooms)} rooms visited")
 else:
